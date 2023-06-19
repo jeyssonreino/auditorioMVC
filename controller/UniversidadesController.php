@@ -23,6 +23,12 @@ class UniversidadesController
         return $data;
     }
 
+    public function listxID($id)
+    {      
+        $data = $this->post->getById($id);
+        return $data;
+    }
+
     public function store($id, $nombre, $ciudad, $salones)
     {
 
@@ -35,20 +41,13 @@ class UniversidadesController
     {      
         $data = $this->post->eliminar($id);
         return $data;  
-
-        if ($data) {
-            header('Location:../index.php');
-            exit;
-        } else {
-            echo "No se pudo eliminar registro";
-        }
     }
 
 
-    public function update()
+    public function update($id, $nombre, $ciudad, $salones)
     {
-
-        echo "Esta es la acción update()";
+        $data = $this->post->actualizar($id, $nombre, $ciudad, $salones);
+        return $data;         
     }
     
 }

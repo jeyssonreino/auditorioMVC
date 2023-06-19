@@ -73,9 +73,9 @@ $data = $controller->list();
                                     <td>
                                         <div class="metodos" style="display: flex; justify-content: center; ">
                                             <div style="margin-right: 10px;">
-                                                <form method="post" action="editar.php">
+                                                <form method="POST" action="views/editar.php">
                                                     <input type="hidden" name="id" value="<?php echo $fila['id']; ?>">
-                                                    <button class="btn btn-primary" type="submit">Editar</button>
+                                                    <button class="btn btn-primary"  name="editar" type="submit">Editar</button>
                                                 </form>
 
                                             </div>
@@ -93,18 +93,8 @@ $data = $controller->list();
                             if (isset($_POST['eliminar'])) {
                                 $id = $_POST['ideliminar'];
                                 $controller->delete($id);
-                            }else if (isset($_POST['eliminar'])){
-                                
-                            }
-
-
-
-    
-
-
-                        
-                        
-                        
+                            } 
+     
                         } ?>
                         </tbody>
                     </table>

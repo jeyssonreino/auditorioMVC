@@ -27,7 +27,7 @@
                 <div class="col-md-12 opciones" style="background-color: #222f3e; color: whitesmoke;">
                     <ul class="nav flex-column ">
                         <li class="nav-item opcion">
-                            <a class="nav-link aopcion" style=" color: whitesmoke;" href="index.php">Universidades</a>
+                            <a class="nav-link aopcion" style=" color: whitesmoke;" href="../index.php">Universidades</a>
                         </li>
                         <li class="nav-item opcion">
                             <a class="nav-link aopcion" style=" color: whitesmoke;" href="listasalones.php">Salones</a>
