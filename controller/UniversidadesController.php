@@ -49,5 +49,48 @@ class UniversidadesController
         $data = $this->post->actualizar($id, $nombre, $ciudad, $salones);
         return $data;         
     }
+
+    
+    public function listSalones()
+    {      
+        $data = $this->post->getAllSalones();
+        return $data;
+    }
+
+    public function listUniversidades()
+    {      
+        $data = $this->post->getAllUniversidades();
+        return $data;
+    }
+
+    public function listFormaSalon()
+    {      
+        $data = $this->post->getAllFormaSalon();
+        return $data;
+    }
+
+    public function SaveSalon($id, $numero, $facultad, $universidad,$forma,$tipo)
+    {      
+        $data = $this->post->guardarSalon($id, $numero, $facultad, $universidad,$forma,$tipo);
+        return $data;
+    }
+
+    public function deleteSalon($id)
+    {      
+        $data = $this->post->eliminarSalon($id);
+        return $data;  
+    }
+
+    public function listxIDSalones($id)
+    {      
+        $data = $this->post->getByIdSalones($id);
+        return $data;
+    }
+
+    public function updateSalon($id, $numero, $facultad, $universidad,$forma,$tipo)
+    {
+        $data = $this->post->actualizarSalon($id, $numero, $facultad, $universidad,$forma,$tipo);
+        return $data;         
+    }
     
 }
