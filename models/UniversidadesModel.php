@@ -12,11 +12,10 @@ class UniversidadesModel
     public function getAll()
     {
         include 'config/DB.php';
-        $sql = "SELECT u.id, u.nombre AS universidadNombre, c.nombre AS ciudadNombre, u.salones FROM universidades u INNER JOIN ciudad c ON u.id = c.id;";
+        $sql = "SELECT * FROM `universidades`;";
         $resultado = mysqli_query($con, $sql);
         $con->close();
         return $resultado;
-
     }
 
     public function getById($id)
@@ -34,7 +33,6 @@ class UniversidadesModel
             $con->close();
         }
         $con->close();
-
     }
 
     public function guardar($nombre, $ciudad, $salones)
@@ -61,9 +59,16 @@ class UniversidadesModel
     public function eliminar($id)
     {
         include 'config/DB.php';
-        $sql = "DELETE FROM universidades WHERE id = $id";
-        mysqli_query($con, $sql);
-        $con->close();
+        $sqlvalidar = "SELECT * FROM `salones` WHERE id_universidad = '$id';";
+        $query = mysqli_query($con, $sqlvalidar);
+        $cantidad = $query->num_rows;
+        if ($cantidad > 0) {
+            echo "<script>swal('No se puede eliminar porque: La universidad tiene salones asignados')</script>";
+        } else {
+            $sql = "DELETE FROM universidades WHERE id = $id";
+            mysqli_query($con, $sql);
+            $con->close();
+        }
     }
 
 
@@ -87,7 +92,6 @@ class UniversidadesModel
         $resultado = mysqli_query($con, $sql);
         $con->close();
         return $resultado;
-
     }
 
     public function getAllUniversidades()
@@ -97,7 +101,6 @@ class UniversidadesModel
         $resultado = mysqli_query($con, $sql);
         $con->close();
         return $resultado;
-
     }
 
     public function getAllFormaSalon()
@@ -107,27 +110,43 @@ class UniversidadesModel
         $resultado = mysqli_query($con, $sql);
         $con->close();
         return $resultado;
-
     }
 
-    public function guardarSalon($numero, $facultad, $universidad,$forma,$tipo)
+    public function guardarSalon($numero, $facultad, $universidad, $forma, $tipo)
     {
-        include '../config/DB.php';
-        $validar = "SELECT * FROM `salones` WHERE `facultad` = '$facultad' AND `id_universidad` = '$universidad' AND `id_forma_salon` = '$forma' AND `id_tipo_salon`= '$tipo' ";
-        $existe = $con->query($validar);
-        $cantidad = $existe->num_rows;
-        if ($cantidad == 0) {
-            $sql = "INSERT INTO `salones`(`numero`, `facultad`, `id_forma_salon`,`id_tipo_salon`, `id_universidad`) VALUES ('$numero','$facultad','$forma','$tipo', '$universidad')";
-            $query = $con->query($sql);
-            if ($query) {
-                echo "<script>swal('¡Salon registrado exitosamente!')</script>";
+        if ($forma == '1' || $forma == '2' || $forma == '3') {
+            if ($tipo == '1' || $tipo == '2' || $tipo == '3' || $tipo == '4' || $tipo == '5' || $tipo == '6' || $tipo == '7') {
+                include '../config/DB.php';
+                $sqlsalones = "SELECT salones FROM universidades u INNER JOIN salones s ON u.id = s.id_universidad WHERE s.id_universidad = '$universidad';";
+                $querysalones = $con->query($sqlsalones);
+                $resultado = mysqli_fetch_assoc($querysalones);
+                if ($resultado['salones'] >= $numero) {
+
+                    $validar = "SELECT * FROM `salones` WHERE `facultad` = '$facultad' AND `id_universidad` = '$universidad' AND `id_forma_salon` = '$forma' AND `id_tipo_salon`= '$tipo' ";
+                    $existe = $con->query($validar);
+                    $cantidad = $existe->num_rows;
+                    if ($cantidad == 0) {
+                        $sql = "INSERT INTO `salones`(`numero`, `facultad`, `id_forma_salon`,`id_tipo_salon`, `id_universidad`) VALUES ('$numero','$facultad','$forma','$tipo', '$universidad')";
+                        $query = $con->query($sql);
+                        if ($query) {
+                            echo "<script>swal('¡Salon registrado exitosamente!')</script>";
+                        } else {
+                            echo "<script>swal('¡Error al guardar el salon')</script>";
+                        }
+                    } else {
+                        echo "<script>swal('¡El salon ya se encuentra registrado!')</script>";
+                    }
+                    $con->close();
+                } else {
+                    echo "<script>swal('¡Número de salones no validos!')</script>";
+
+                }
             } else {
-                echo "<script>swal('¡Error al guardar el salon')</script>";
-            }   
+                echo "<script>swal('¡Tipo de salon no valida!')</script>";
+            }
         } else {
-            echo "<script>swal('¡El salon ya se encuentra registrado!')</script>";
+            echo "<script>swal('¡Forma de salon no valida!')</script>";
         }
-        $con->close();
     }
 
     public function eliminarSalon($id)
@@ -153,10 +172,9 @@ class UniversidadesModel
             $con->close();
         }
         $con->close();
-
     }
 
-    public function actualizarSalon($id, $numero, $facultad, $universidad,$forma,$tipo)
+    public function actualizarSalon($id, $numero, $facultad, $universidad, $forma, $tipo)
     {
         include '../config/DB.php';
         $sql = "UPDATE `salones` SET `id`='$id',`numero`='$numero',`facultad`='$facultad',`id_forma_salon`='$forma',`id_tipo_salon`='$tipo',`id_universidad`='$universidad' WHERE `id` = '$id'";
@@ -176,6 +194,5 @@ class UniversidadesModel
         $resultado = mysqli_query($con, $sql);
         $con->close();
         return $resultado;
-
     }
 }
