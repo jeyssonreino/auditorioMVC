@@ -1,3 +1,7 @@
+<?php
+require_once '../controller/UniversidadesController.php';
+$controller = new UniversidadesController();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -43,12 +47,7 @@
                     <h1>Registrar universidad</h1>
                 </div>
                 <form method="POST" action="#">
-                    <div class="form-group row item">
-                        <label class="col-4 col-form-label" for="id">Id:</label>
-                        <div class="col-8">
-                            <input id="id" name="id" type="number" class="form-control" required>
-                        </div>
-                    </div>
+
                     <div class="form-group row item">
                         <label for="nombre" class="col-4 col-form-label">Nombre:</label>
                         <div class="col-8">
@@ -56,10 +55,16 @@
                         </div>
                     </div>
                     <div class="form-group row item">
-                        <label for="ciudad" class="col-4 col-form-label">Ciudad:</label>
-                        <div class="col-8">
-                            <input id="ciudad" name="ciudad" type="text" class="form-control" required>
-                        </div>
+                        <label for="ciudad" class="col-4 col-form-label">Ciudad</label>
+                        <select id="ciudad" name="ciudad">
+                            <option value="">Selecciona una ciudad</option>
+                            <?php
+                            $data = $controller->listaCiudades();
+                            foreach ($data as $rowu) {
+                                echo "<option value='" . $rowu['id'] . "'>" . $rowu['nombre'] . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
                     <div class="form-group row item">
                         <label for="salones" class="col-4 col-form-label">Número de salones:</label>
@@ -84,16 +89,13 @@
 </body>
 <?php
 
-    if (isset($_POST['id']) && isset($_POST['nombre']) && isset($_POST['ciudad']) && isset($_POST['salones'])) {
-        $id = $_POST['id'];
-        $nombre = $_POST['nombre'];
-        $ciudad = $_POST['ciudad'];
-        $salones = $_POST['salones'];
+if (isset($_POST['nombre']) && isset($_POST['ciudad']) && isset($_POST['salones'])) {
+    $nombre = $_POST['nombre'];
+    $ciudad = $_POST['ciudad'];
+    $salones = $_POST['salones'];
 
-        require_once '../controller/UniversidadesController.php';
-        $controller = new UniversidadesController();
-        $controller->store($id, $nombre, $ciudad, $salones);
-    }
+    $controller->store($nombre, $ciudad, $salones);
+}
 
 ?>
 

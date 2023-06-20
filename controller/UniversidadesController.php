@@ -29,10 +29,10 @@ class UniversidadesController
         return $data;
     }
 
-    public function store($id, $nombre, $ciudad, $salones)
+    public function store($nombre, $ciudad, $salones)
     {
 
-        $data = $this->post->guardar($id, $nombre, $ciudad, $salones);
+        $data = $this->post->guardar($nombre, $ciudad, $salones);
         return $data;
 
     }
@@ -69,9 +69,9 @@ class UniversidadesController
         return $data;
     }
 
-    public function SaveSalon($id, $numero, $facultad, $universidad,$forma,$tipo)
+    public function SaveSalon($numero, $facultad, $universidad,$forma,$tipo)
     {      
-        $data = $this->post->guardarSalon($id, $numero, $facultad, $universidad,$forma,$tipo);
+        $data = $this->post->guardarSalon($numero, $facultad, $universidad,$forma,$tipo);
         return $data;
     }
 
@@ -91,6 +91,12 @@ class UniversidadesController
     {
         $data = $this->post->actualizarSalon($id, $numero, $facultad, $universidad,$forma,$tipo);
         return $data;         
+    }
+
+    public function listaCiudades()
+    {      
+        $data = $this->post->getAllCiudades();
+        return $data;
     }
     
 }

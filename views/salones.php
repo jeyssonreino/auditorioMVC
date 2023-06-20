@@ -32,7 +32,7 @@ $controller = new UniversidadesController();
                 <div class="col-md-12 opciones" style="background-color: #222f3e; color: whitesmoke;">
                     <ul class="nav flex-column ">
                         <li class="nav-item opcion">
-                            <a class="nav-link aopcion" style=" color: whitesmoke;" href="index.php">Universidades</a>
+                            <a class="nav-link aopcion" style=" color: whitesmoke;" href="../index.php">Universidades</a>
                         </li>
                         <li class="nav-item opcion">
                             <a class="nav-link aopcion" style=" color: whitesmoke;" href="listasalones.php">Salones</a>
@@ -50,13 +50,7 @@ $controller = new UniversidadesController();
                 </div>
                 <form method="POST" action="#">
                     <div class="form-group row item">
-                        <label class="col-4 col-form-label" for="id">Id</label>
-                        <div class="col-8">
-                            <input id="id" name="id" type="number" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row item">
-                        <label for="numero" class="col-4 col-form-label">Numero</label>
+                        <label for="numero" class="col-4 col-form-label">Número de salones</label>
                         <div class="col-8">
                             <input id="numero" name="numero" type="number" class="form-control" required>
                         </div>
@@ -144,16 +138,15 @@ $controller = new UniversidadesController();
 
 <?php
 
-if (isset($_POST['id']) && isset($_POST['numero']) && isset($_POST['facultad'])  && isset($_POST['forma']) && isset($_POST['tipo']) && isset($_POST['universidad'])) {
+if (isset($_POST['numero']) && isset($_POST['facultad'])  && isset($_POST['forma']) && isset($_POST['tipo']) && isset($_POST['universidad'])) {
 
-    $id = $_POST['id'];
     $numero = $_POST['numero'];
     $facultad = $_POST['facultad'];
     $universidad = $_POST['universidad'];
     $forma = $_POST['forma'];
     $tipo = $_POST['tipo'];
 
-    $controller->SaveSalon($id, $numero, $facultad, $universidad,$forma,$tipo);
+    $controller->SaveSalon($numero, $facultad, $universidad,$forma,$tipo);
 }
 
 

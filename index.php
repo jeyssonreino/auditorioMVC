@@ -67,8 +67,8 @@ $data = $controller->list();
                             foreach ($data as $fila) { ?>
                                 <tr scope="row">
                                     <td><?php echo $fila['id']; ?></td>
-                                    <td><?php echo $fila['nombre']; ?></td>
-                                    <td><?php echo $fila['ciudad']; ?></td>
+                                    <td><?php echo $fila['universidadNombre']; ?></td>
+                                    <td><?php echo $fila['ciudadNombre']; ?></td>
                                     <td><?php echo $fila['salones']; ?></td>
                                     <td>
                                         <div class="metodos" style="display: flex; justify-content: center; ">

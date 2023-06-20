@@ -57,7 +57,13 @@
                         echo "<form action='#' method='POST'>";
                         echo "<input id='id' name='id' type='hidden' required='required' class='form-control col-3' value=" . $lista["id"] . "><br>";
                         echo "<input id='nombre' name='nombre' type='text' required='required' class='form-control col-3' value=" . $lista["nombre"] . "><br>";
-                        echo "<input id='ciudad' name='ciudad' type='text' required='required' class='form-control col-3' value=" . $lista["ciudad"] . "><br>";
+                        echo "<select id='ciudad' name='ciudad' required='required' class='form-control col-3'>";
+                        echo "<option value='" . $lista["id"] . "' " . $selected . ">" . $lista["ciudad"] . "</option>";
+                        $dataciudad = $controller->listaCiudades();
+                        foreach ($dataciudad as $rowc) {
+                            echo "<option value='" . $rowc['id'] . "'>" . $rowc['nombre'] . "</option>";
+                        }
+                        echo "</select><br>";
                         echo "<input id='salones' name='salones' type='text' required='required' class='form-control col-3' value=" . $lista["salones"] . "><br>";
 
                         echo "<input type='submit' value='Actualizar' class='btn btn-primary''>
